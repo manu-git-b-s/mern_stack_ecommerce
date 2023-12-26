@@ -4,9 +4,10 @@ import colors from "colors";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/auth.js";
+import cors from "cors";
 
 // configure env //no need to define path because .env file is already in the path.
-dotenv.config({ path: "./" });
+dotenv.config();
 
 // Databse connect
 connectDB();
@@ -15,6 +16,7 @@ connectDB();
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -31,5 +33,5 @@ const port = process.env.PORT || 8080;
 
 // run listen
 app.listen(port, () => {
-  console.log(`Server running on ${process.env.DEV_MODE || "development"} mode ${port}`.bgCyan.white);
+  console.log(`Server running on ${process.env.DEV_MODE} mode ${port}`.bgCyan.white);
 });

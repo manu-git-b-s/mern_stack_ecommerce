@@ -7,19 +7,19 @@ export const registerController = async (req, res) => {
     const { name, email, password, phone, address } = req.body;
     // Validations
     if (!name) {
-      return res.send({ error: "Name is required" });
+      return res.send({ message: "Name is required" });
     }
     if (!email) {
-      return res.send({ error: "Email is required" });
+      return res.send({ message: "Email is required" });
     }
     if (!password) {
-      return res.send({ error: "Password is required" });
+      return res.send({ message: "Password is required" });
     }
     if (!address) {
-      return res.send({ error: "Address is required" });
+      return res.send({ message: "Address is required" });
     }
     if (!phone) {
-      return res.send({ error: "Phone Number is required" });
+      return res.send({ message: "Phone Number is required" });
     }
 
     // check user
@@ -32,7 +32,7 @@ export const registerController = async (req, res) => {
     const hashedPassword = await hashPassword(password);
     // save
     const user = await new userModel({ name, email, password: hashedPassword, phone, address }).save();
-    res.status(200).send({ success: true, message: "User registered successfully", user });
+    res.status(201).send({ success: true, message: "User registered successfully", user });
   } catch (error) {
     console.log(error);
     res.status(500).send({ success: false, message: "Error in registraion", error });
@@ -59,7 +59,7 @@ export const loginController = async (req, res) => {
     }
 
     // token
-    const token = await JWT.sign({ _id: user.id }, process.env.JWT_SECRET || "DASGKHJJY3216758", { expiresIn: "7d" });
+    const token = await JWT.sign({ _id: user.id }, process.env.JWT_SECRET, { expiresIn: "7d" });
     res.status(200).send({
       success: true,
       message: "Login successfully",

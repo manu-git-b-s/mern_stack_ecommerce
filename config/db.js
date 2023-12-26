@@ -3,9 +3,7 @@ import colors from "colors";
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(
-      process.env.MONGO_URL || `mongodb+srv://bsmanupriyan:augWSEuzWYV9zm2S@cluster0.ewd4med.mongodb.net/ecommerce`
-    );
+    const conn = await mongoose.connect(process.env.MONGO_URL);
     console.log(`Connected to Mongodb Database ${conn.connection.host}`.bgMagenta.white);
   } catch (err) {
     console.log(`Error in mongodb : ${err}`.bgRed.white);
