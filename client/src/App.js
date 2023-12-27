@@ -7,6 +7,8 @@ import Contact from "./pages/Contact.js";
 import Register from "./pages/Auth/Register.js";
 import { Toaster } from "react-hot-toast";
 import Login from "./pages/Auth/Login.js";
+import Dashboard from "./components/user/Dashboard.js";
+import PrivateRoute from "./routes/Private.js";
 
 function App() {
   return (
@@ -14,6 +16,9 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="" element={<Dashboard />} />
+        </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<About />} />

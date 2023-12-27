@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Layout from "../../components/layout/Layout";
@@ -7,6 +7,7 @@ import { useAuth } from "../../context/Auth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [auth, setAuth] = useAuth();
 
   const [email, setEmail] = useState("");
@@ -27,7 +28,7 @@ const Login = () => {
           token: res.data.token,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
-        navigate("/");
+        navigate(location.state || "/");
       } else {
         toast.error(res.data.message);
       }
